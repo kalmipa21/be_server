@@ -1,0 +1,1686 @@
+{
+	"info": {
+		"_postman_id": "fde919b7-ff68-4fbe-a788-ad507ec0b3ba",
+		"name": "be_server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26790182"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Rahma\",\r\n    \"email\": \"rahma@user.cm\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"const token = responseJson?.data?.token;\r",
+									"\r",
+									"if (token) pm.globals.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"arip@server.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"token\", null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aruany@server.cm\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/:_id/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":_id",
+								"logout"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649ef46ceaa7b92dddc0bb41",
+									"description": "Must same with _id on login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users?q=&sort_by&page&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "search by full_name"
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"description": "asc/desc"
+								},
+								{
+									"key": "page",
+									"value": null,
+									"description": "what page"
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"description": "Data each page"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/:_id/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":_id",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "search by full_name",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"description": "asc/desc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"description": "what page",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"description": "Data each page",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6498780708efa3989abb8b5b",
+									"description": "Must same with _id on login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "full_name",
+									"value": "Arif S",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Arif Saputra/Pictures/22-220767_web-developer-wallpaper-4k.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/:_id/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":_id",
+								"update"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "search by full_name",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"description": "asc/desc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"description": "what page",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"description": "Data each page",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6498780708efa3989abb8b5b",
+									"description": "Must same with _id on login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/:_id/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":_id",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "search by full_name",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"description": "asc/desc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"description": "what page",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"description": "Data each page",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649a84e284c7b9bc48458934"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Create role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"magician\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/role/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Roles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"customer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/role/all?q=m&sort_by&page&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								"all"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "m"
+								},
+								{
+									"key": "sort_by",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "per_page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Role",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"customer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/role/:_id/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								":_id",
+								"detail"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "64986cd120ab57eecb5d68a3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/role/:_id/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								":_id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6497db51e19006ab55af9713"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/role/:_id/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								":_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "64986cd120ab57eecb5d68a3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tambahan Gaming\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/new",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"customer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/all?q=&sort_by&page&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"all"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": ""
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"description": "asc/desc"
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "per_page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/:_id/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":_id",
+								"detail"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649bb200f4829ac32ee9fbda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tablet\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/:_id/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":_id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649bb218f4829ac32ee9fbe3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/:_id/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649bcda6e078fa2b6715c532"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Apple Watch",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "20000000",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "649bb210f4829ac32ee9fbe0",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Arif Saputra/Pictures/Data BE/smartphone.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/new",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"customer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/all?q=&sort_by=&page&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": ""
+								},
+								{
+									"key": "sort_by",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "per_page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/:_id/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":_id",
+								"detail"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649bd95319f187c53fe3f4bf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Headset Gaming Dholpin 332HS",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2000000",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "649bcd94e078fa2b6715c52f",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/:_id/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":_id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649bfa7a89f97cb99b455916"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/:_id/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649c0ab87925045f6c4e833f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Checkout",
+			"item": [
+				{
+					"name": "Create Checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\":[\r\n        {\r\n            \"name\": \"Samsung\",\r\n            \"price\": 3000000,\r\n            \"image\": {\r\n                \"url\": \"https://res.cloudinary.com/dssqi9ftw/image/upload/v1687943892/fwdrfchjy9bpkovooszz.jpg\",\r\n                \"cloudinary_id\": \"fwdrfchjy9bpkovooszz\"\r\n            },\r\n            \"category\": {\r\n                \"_id\": \"649bb210f4829ac32ee9fbe0\",\r\n                \"name\": \"handphone\"\r\n            },\r\n            \"qty\": 1,\r\n            \"sub_total\": 3000000\r\n        },\r\n        {\r\n            \"name\": \"Lenovo\",\r\n            \"price\": 1000000,\r\n            \"image\": {\r\n                \"url\": \"https://res.cloudinary.com/dssqi9ftw/image/upload/v1687943892/fwdrfchjy9bpkovooszz.jpg\",\r\n                \"cloudinary_id\": \"fwdrfchjy9bpkovooszz\"\r\n            },\r\n            \"category\": {\r\n                \"_id\": \"649bb210f4829ac32ee9fbe0\",\r\n                \"name\": \"handphone\"\r\n            },\r\n            \"qty\": 1,\r\n            \"sub_total\": 1000000\r\n        }\r\n    ],\r\n    \"address\":{\r\n        \"_id\": \"test\",\r\n      \"name\": \"test\"\r\n    },\r\n    \"total\": 4400000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/new",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/all?q=&sort_by&page=&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								"all"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": ""
+								},
+								{
+									"key": "sort_by",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": ""
+								},
+								{
+									"key": "per_page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/:_id/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								":_id",
+								"history"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649a8832cc06e34113f46162"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/:invoice/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								":invoice",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "invoice",
+									"value": "INVOICE1688038022730"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/:invoice/confirm",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								":invoice",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "invoice",
+									"value": "INVOICE1688038022730"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/checkouts/:invoice/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"checkouts",
+								":invoice",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort_by",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "invoice",
+									"value": "INVOICE1688037214399"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "Create Adddress",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"name\": \"office\",\r\n    \"address\": \"Jl Test 1 RT 01 RW 02\",\r\n    \"province\": {\r\n      \"_id\": \"34\",\r\n      \"name\": \"Jawa Tengah\"\r\n    },\r\n    \"regency\": {\r\n      \"_id\": \"3504\",\r\n      \"name\": \"Purworejo\"\r\n    },\r\n    \"district\": {\r\n      \"_id\": \"3404070\",\r\n      \"name\": \"Pendowo\"\r\n    },\r\n    \"village\": {\r\n      \"_id\": \"3404070003\",\r\n      \"name\": \"Bragolan\"\r\n    },\r\n    \"passcode\": \"12345\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/address/new",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/address/all?q=&sort_by&page&per_page",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"all"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": ""
+								},
+								{
+									"key": "sort_by",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "per_page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/address/:_id/detail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								":_id",
+								"detail"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649ee8ef320b3900293ad611"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"name\": \"office\",\r\n    \"address\": \"Jl Test 1 RT 01 RW 02\",\r\n    \"province\": {\r\n      \"_id\": \"34\",\r\n      \"name\": \"Jawa Tengah\"\r\n    },\r\n    \"regency\": {\r\n      \"_id\": \"3504\",\r\n      \"name\": \"Purworejo\"\r\n    },\r\n    \"district\": {\r\n      \"_id\": \"3404070\",\r\n      \"name\": \"Pendowo\"\r\n    },\r\n    \"village\": {\r\n      \"_id\": \"3404070003\",\r\n      \"name\": \"Bragolan\"\r\n    },\r\n    \"passcode\": \"12345\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/address/:_id/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								":_id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649ee8ef320b3900293ad611"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/address/:_id/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								":_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "649ee8ef320b3900293ad611"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
