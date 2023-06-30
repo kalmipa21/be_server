@@ -32,20 +32,12 @@ const createCheckout = async (req, res) => {
   try {
     await isValidator({ ...body }, rules, null, async (err, status) => {
       if (!status) return Messages(res, 412, { ...err, status });
-      // const total = chart.reduce((a, b) => a.sub_total + b.sub_total);
 
       console.log(body);
 
       await new M_checkout(body).save();
       Messages(res, 200, "Checkout succcess");
     });
-    // await isValidator({ ...body }, rules, null, async (err, status) => {
-    //   if (!status) return Messages(res, 412, { ...err, status });
-    //   // const total = chart.reduce((a, b) => a.sub_total + b.sub_total);
-
-    //   await new M_checkout(body).save();
-    //   Messages(res, 200, "Checkout succcess");
-    // });
   } catch (error) {
     Messages(res, 500, error?.message || "Interal server error");
   }
@@ -70,15 +62,6 @@ const allCheckout = async (req, res) => {
       .skip(pages)
       .limit(per_page);
 
-    // if (data.length == 1) {
-    //   const incomes = data.map((item) => item.total);
-    //   console.log(incomes);
-    //   return Messages(res, 200, "All Data", [data, "incomes:", ...incomes], {
-    //     page,
-    //     per_page,
-    //     total,
-    //   });
-    // }
     const currentTotal = data.map((item) => item.total);
     let incomes = 0;
     if (currentTotal.length)
