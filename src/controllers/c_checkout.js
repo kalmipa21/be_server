@@ -36,7 +36,7 @@ const createCheckout = async (req, res) => {
       console.log(body);
 
       await new M_checkout(body).save();
-      Messages(res, 200, "Checkout succcess");
+      Messages(res, 200, "Checkout succcess", { invoice });
     });
   } catch (error) {
     Messages(res, 500, error?.message || "Interal server error");
