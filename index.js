@@ -7,6 +7,7 @@ import r_categories from "./src/routers/r_categories.js";
 import r_product from "./src/routers/r_products.js";
 import r_checkout from "./src/routers/r_checkout.js";
 import r_address from "./src/routers/r_address.js";
+import r_region from "./src/routers/r_region.js";
 
 //Import Router
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/v1", r_categories);
 app.use("/api/v1", r_product);
 app.use("/api/v1", r_checkout);
 app.use("/api/v1", r_address);
+app.use("/api/v1", r_region);
 
 // console.log("At", PORT);
 
