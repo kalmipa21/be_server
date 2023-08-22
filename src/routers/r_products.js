@@ -22,6 +22,7 @@ ROUTER.put(
   updateProduct
 );
 ROUTER.get("/products", authentication, allProduct);
+ROUTER.get("/products/display", allProduct);
 ROUTER.get("/products/:_id/detail", authentication, detailProduct);
 ROUTER.delete("/products/:_id/delete", authentication, admin, deleteProduct);
 
