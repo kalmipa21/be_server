@@ -39,7 +39,7 @@ const createAddress = async (req, res) => {
       };
       const findByName = await M_address.findOne(filter);
       if (findByName)
-        return Messages(res, 400, `Name ${name} has been regostered`);
+        return Messages(res, 400, `Name ${name} has been registered`);
 
       const payload = { ...body, name, address, user_id };
       await new M_address(payload).save();
